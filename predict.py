@@ -34,7 +34,11 @@ from keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
 from tensorflow import keras
 
-nlp = spacy.load("en_core_web_sm")
+try:
+    nlp = spacy.load("en_core_web_sm")
+except:
+    os.system("python -m spacy download en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 ###### RECONSTRUCTING MODELS ######
 
