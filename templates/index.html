@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<body>
+    <link rel='stylesheet' href='bootstrap.min.css'>
+    </style>
+    <link rel='stylesheet' href='font-awesome.min.css'>
+    </style>
+    <div class="container">
+        <div class="centered">
+            <header class="text-center text-white">
+                <title> Cuisine origin predictionn </title>
+                <h1 class='header'>
+                    Where does your recipe come from?
+                </h1>
+                <h2 class='header'>
+                    Check with this cuisine prediction app!
+                </h2>
+                <p class='desc'>
+                    Input your recipe, click submit and wait to see what its origin might be!
+                </p>
+                <form method="POST" onSubmit='return validate();' class='form'>
+                    <textarea class="text_box" name="text" cols="40" rows="5"></textarea>
+                    <br>
+                    <input type="submit" onclick='this.form.submit();'>
+                </form>
+                <br>
+                <br>
+                <p class="output" id='demo'>{{ variable }} </p>
+
+        </div>
+    </div>
+    </head>
+</body>
+<style>
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .header {
+        color: black
+    }
+
+    .text_box {
+        height: 200px;
+        width: 400px;
+    }
+
+    .output {
+        color: #111;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 24px;
+        line-height: 24px;
+        margin: 0 0 24px;
+        text-justify: inter-word;
+    }
+
+    p {
+        color: #111;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 18px;
+        line-height: 24px;
+        margin: 0 0 24px;
+        text-justify: inter-word;
+    }
+
+    h1 {
+        color: #111;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 36px;
+        font-weight: bold;
+        letter-spacing: -1px;
+        line-height: 1;
+        text-align: center;
+    }
+
+    h2 {
+        color: #111;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        letter-spacing: -1px;
+        line-height: 1;
+        text-align: center;
+    }
+
+    #demo {
+        color: #111;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 22px;
+        line-height: 24px;
+        margin: 0 0 24px;
+        text-justify: inter-word;
+    }
+
+    input[type=submit] {
+        background-color: #f06237;
+        border: none;
+        border-radius: 12px;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 0.95em;
+        margin: 10px;
+    }
+
+    input[type=submit]:hover {
+        background-color: #b0540e;
+    }
+</style>
+
+</html>

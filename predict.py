@@ -36,17 +36,7 @@ from tensorflow import keras
 
 nlp = spacy.load("en_core_web_sm")
 
-
-def parse_opt():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--recipe",
-        type=argparse.FileType("r"),
-        help="Input your recipe .txt file here",
-    )
-
-    opt = parser.parse_args()
-    return opt
+###### RECONSTRUCTING MODELS ######
 
 
 def f1_multiclass(y_true, y_pred):
@@ -72,6 +62,37 @@ def f1_multiclass(y_true, y_pred):
         f1s[i] = 2 * ((precision * recall) / (precision + recall + np.finfo(float).eps))
 
     return round(f1s.mean(), 2)
+
+
+# NER dictionaries
+word2int, prefix2int, suffix2int, int2tag = pickle.load(
+    open("models/corpus.pickle", "rb")
+)
+
+# reconstructing Bi-LSTM model
+model = keras.models.load_model(
+    "models/bilstm_best", custom_objects={"f1_multiclass": f1_multiclass}
+)
+
+# reconstructing the SVM classifier
+tfidf_vectorizer, svm = pickle.load(open("models/SVM_classification.pickle", "rb"))
+
+############################################
+
+
+###### SETTING UP PREDICTION PIPELINE ######
+
+
+def parse_opt():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--recipe",
+        type=argparse.FileType("r"),
+        help="Input your recipe .txt file here",
+    )
+
+    opt = parser.parse_args()
+    return opt
 
 
 def extract_ingredient(recipe, model):
@@ -128,26 +149,18 @@ def process_string(recipe):
     return [" ".join(prep_r)]
 
 
-# NER dictionaries
-word2int, prefix2int, suffix2int, int2tag = pickle.load(
-    open("models/corpus.pickle", "rb")
-)
+def predict(recipe):
 
-# reconstructing Bi-LSTM model
-model = keras.models.load_model(
-    "models/bilstm_best", custom_objects={"f1_multiclass": f1_multiclass}
-)
+    int_output = extract_ingredient(recipe, model)
+    int_output = process_string(int_output)
+    # print("Ingredients detected: ", int_output[0].split())
+    int_output = tfidf_vectorizer.transform(int_output)
+    output = svm.predict(int_output)
 
-# reconstructing the SVM classifier
-tfidf_vectorizer, svm = pickle.load(open("models/SVM_classification.pickle", "rb"))
+    return output[0]
 
-opt = parse_opt()
-recipe = " ".join(opt.recipe.readlines())
-int_output = extract_ingredient(recipe, model)
-int_output = process_string(int_output)
-print("Ingredients detected: ", int_output[0].split())
-int_output = tfidf_vectorizer.transform(int_output)
 
-output = svm.predict(int_output)
-
-print("This recipe might be {}".format(output[0]))
+if __name__ == "__main__":
+    opt = parse_opt()
+    recipe = " ".join(opt.recipe.readlines())
+    print("This recipe might be {}".format(predict(recipe)))
