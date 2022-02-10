@@ -3,7 +3,6 @@ asttokens==2.0.5
 astunparse==1.6.3
 backcall==0.2.0
 bayesian-optimization==1.2.0
-black==21.11b1
 blis==0.7.5
 cachetools==4.2.4
 catalogue==2.0.6
