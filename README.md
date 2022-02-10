@@ -127,7 +127,8 @@ git clone --recurse-submodules https://github.com/dvdimitrov13/Predict-recipe-cu
   conda env create -n "nlp" python=3.9
   conda activate nlp
   ```
-    * Install the requirements using pip
+  * Install the requirements using pip
+    
   ```
   conda install pip
   pip install -r requirements.txt 
