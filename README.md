@@ -137,7 +137,7 @@ git clone --recurse-submodules https://github.com/dvdimitrov13/Predict-recipe-cu
 ### Prediction
 
 There are two ways you can go about testing the models on your own recipe. The first and simpler one is to use the web app interface I have provided. To do run the 'flask_app.py' file in your terminal and follow the address that you see in console!
-* I am currently working on deploying this web app, after running into memore issues with heroku I am exploring other options -- stay tuned!
+* I am currently working on deploying this web app, after running into RAM issues with heroku I am exploring other deployment options -- stay tuned!
 
 The second option is to use the `predict.py` script as follows. To predict the cuisine of your original recipe you need to follow the insatlation steps after which you can paste your recipe in a custom .txt file or `recipe.txt`  and run the follwing command: 
 ```
