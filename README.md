@@ -19,9 +19,9 @@
 <details>
   <ol>
     <li>
-      <a href="#main-idea">Main dea/a>
+      <a href="#main-idea">Main idea>
       <ul>
-        <li><a href="#environment">Environment</a></li>
+        <li><a href="#environment-and-deployment">Environment and Deployment</a></li>
         <li><a href="#development">Development</a></li>
         <li><a href="#results">Results</a></li>
       </ul>
@@ -43,7 +43,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## Main idea
-This project was developed as part of my Data Science MSc curriculum, with a goal of exploring two different problems in the realm of Natural Language Processing - structured prediction and classification. 
+This project was developed as part of my Data Science MSc curriculum, with a goal of exploring two different problems in the realm of Natural Language Processing - structured prediction and classification. Additionally, I deployed the final model pipeline with Azure, you can play around with it here - https://where-is-the-recipe-from.azurewebsites.net/
 
 The idea is to train a Named Entity Recognition model to extract ingredients from raw recipe instructions ehn, thate output will be fed into a classification model that  able to predict the cuisine (currently trained on 20 different cuisines).
 
@@ -56,9 +56,13 @@ The development environment for this project was a Ubuntu 20.04 machine with a G
 
 Additionally, in order to make the reproducibility and improvement of this repository as straightforward as possible, I used Git Large File Storage. This allowed for a simple cloning that includes all relevant training data, as well as model weights.
 
+Finally, for model deployment I used Azure B1 instance as Heroku proved insufficient due to RAM requirements. I have employed continuous deployment via github connection allwoing for smooth improvement experience. The repository used for that is streamlined private version of this one - this was done to reduce slug size during deployment, another issue I encountered initially. 
+
 Now I am going to give a high level overview of the projector. For more detail and interesting analysis/visualisations please go through the [jupyter notebook](https://github.com/dvdimitrov13/Predict-recipe-cuisine-using-NLP/blob/master/Non-Attending_Project.ipynb) in the repo! 
 
 <div align="center" style="position:relative;">
+    <a href="https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwiS0f6Bt7j0AhWRzXcKHXXkA0gYABAAGgJlZg&ae=2&ohost=www.google.com&cid=CAESQOD2WXDDC3bcaN6__E7gY08J137qyTW6nOQb8DRsJPfVaCbKW_MnwwecmS8dCR7oZPQSLYd6V8LfB32ZLnpJUqA&sig=AOD64_2JGNrArPWvbnOJLMOXwqSsXl1gSw&q&adurl&ved=2ahUKEwjrovWBt7j0AhW3gv0HHXPGCYYQ0Qx6BAgCEAE&dct=1">
+        <img src="https://aspiracloud.com/wp-content/uploads/2019/07/azure.png" width="10%"/>
     </a>
     <a href="https://git-lfs.github.com/">
         <img src="https://github.com/dvdimitrov13/Logo_Detection/blob/master/images/git_lfs.png" width="60" height="60"/>
@@ -136,10 +140,11 @@ git clone --recurse-submodules https://github.com/dvdimitrov13/Predict-recipe-cu
 
 ### Prediction
 
-There are two ways you can go about testing the models on your own recipe. The first and simpler one is to use the web app interface I have provided. To do run the 'flask_app.py' file in your terminal and follow the address that you see in console!
-* I am currently working on deploying this web app, after running into RAM issues with heroku I am exploring other deployment options -- stay tuned!
+If you clone this repo locally you could do inference either by using the `predict.py` script or by running `app.py` -  a flask webapp locally. Running the webappprovides better results since `predict.py`reconstructes the model with every callmaking inference slow. 
 
-The second option is to use the `predict.py` script as follows. To predict the cuisine of your original recipe you need to follow the insatlation steps after which you can paste your recipe in a custom .txt file or `recipe.txt`  and run the follwing command: 
+Before explaining how you can use `predict.py` I will introduce the easiest way to play with the model - https://where-is-the-recipe-from.azurewebsites.net/ ( a deployment of the flask webapp using Azure Web Services).
+
+Here is how to use `predict.py` -  follow the insatlation steps after which you can paste your recipe in a `custom .txt` file or the provided `recipe.txt`  and run the follwing command: 
 ```
 python predict.py --recipe recipe.txt
 ```
